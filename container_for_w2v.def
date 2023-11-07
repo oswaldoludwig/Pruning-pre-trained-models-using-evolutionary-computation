@@ -1,0 +1,65 @@
+Bootstrap: localimage
+From: /asr/users/vm/workspace/cerence_containers/tf-2.4/tensorflow-2.4.1.sif
+
+%files
+#/usr/lib64/libssl.so.10 /usr/lib64/libssl.so.10
+#/usr/lib64/libcrypto.so.10 /usr/lib64/libcrypto.so.10
+#/usr/lib64/libmunge.so.2.0.0 /usr/lib64/libmunge.so.2.0.0
+
+%environment
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/lib64:$LD_LIBRARY_PATH
+
+%post
+        apt-get -y install wget gnupg software-properties-common
+        apt-get install libmunge2
+
+        wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+        mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+        apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
+        add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
+
+        apt-get -y update
+        apt-get -y install \
+           libsndfile1 ffmpeg \
+           libsndfile-dev sndfile-programs \
+           gdb less emacs sox wget git bzip2 nvidia-modprobe \
+           python3-venv locales
+        rm -rf /var/lib/apt/lists/*
+        apt-get clean
+
+        #ln -s /usr/lib64/libmunge.so.2.0.0 /usr/lib64/libmunge.so.2
+
+        locale-gen en_US.UTF-8
+
+        python3 -m pip install --upgrade pip        
+        pip3 install tensorflow_text
+        pip3 install torch===1.9.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html
+        pip3 install scikit-learn
+        pip3 install typing
+        pip3 install pathlib
+        pip3 install transformers
+        pip3 install sentencepiece
+        pip3 install datasets
+        pip3 install soundfile
+        pip3 install packaging
+        pip3 install psutil
+        pip3 install ipython
+        pip3 install jiwer
+        pip3 install TensorFlowASR
+
+#!/bin/bash
+  CUSTOM_ENV=/.singularity.d/env/99-zz_custom_env.sh
+  cat >$CUSTOM_ENV <<EOF
+#!/bin/bash
+PS1="[singularity] \[\e[34m\][\A] \h:\W\[\e[0m\] \#>"
+export GPB_HOME=/protobuf-3.6.1
+EOF
+  chmod 755 $CUSTOM_ENV
+  mkdir -p /extension
+
+%help
+        This is a container built for end-to-end ASR experiments using TF2, PyTorch, Transformers library, and other dependencies for ASR.
+        This container uses CUDA11.1
+
+%runscript
+  exec /bin/bash -l
