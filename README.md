@@ -1,6 +1,6 @@
 # Pruning pre-trained models using evolutionary computation
 
-This repository contains scripts to remove Wav2vec2 using a neuroevolution-based method. More details about this method can be found in the paper [Compressing Wav2vec2 for Embedded Applications](https://ieeexplore.ieee.org/document/10285964). In case of publication using ideas or code snippets from this repository, please cite this article.
+This repository contains scripts to prune Wav2vec2 using a neuroevolution-based method. More details about this method can be found in the paper [Compressing Wav2vec2 for Embedded Applications](https://ieeexplore.ieee.org/document/10285964). In case of publication using ideas or code snippets from this repository, please cite this article.
 
 <p align="justify"> The algorithm applies a customized version of Genetic Algorithms (GA) specially designed to solve the combinatorial optimization problem associated with pruning, which means running many copies of the Wav2vec2 decoder in parallel using multiprocessing on a computer grid. This method can be applied to any pre-trained AI model to preserve as much information as possible from its pre-training. The scripts are fully commented, indicating how parallel processing is configured and how Wav2vec2 tensors are pruned. </p>
 
