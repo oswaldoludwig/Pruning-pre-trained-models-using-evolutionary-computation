@@ -1,5 +1,5 @@
 Bootstrap: localimage
-From: /asr/users/vm/workspace/cerence_containers/tf-2.4/tensorflow-2.4.1.sif
+From: <path_to_your_baseline_container.sif>
 
 %files
 #/usr/lib64/libssl.so.10 /usr/lib64/libssl.so.10
