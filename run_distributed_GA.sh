@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /asr/users/oswaldo_ludwig/E2E_ASR/train_Cerence_data/w2v/GA_pruning
+cd <your_work_directory>
 
 echo 'defining binds...'
 export SINGULARITY_BIND="/opt/slurm,/asr/users/oswaldo_ludwig"
