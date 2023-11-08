@@ -1,4 +1,4 @@
-# This script adapts the HuggingFace Wav2vec2 codes to edit fully connected layers and replace them with their pruned versions
+# This script adapts the HuggingFace Wav2vec2 code to edit fully connected layers and replace them with their pruned versions
 # Author: Oswaldo Ludwig
 
 
